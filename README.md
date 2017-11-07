@@ -1,6 +1,6 @@
-# Angular 5 Bing Spellchecker Textarea
+# Angular 5 Bing Spellchecker
 
-This library allows your Angular 5+ app to create textarea fields that use [Bing's Spellcheck API]() to verify spelling and grammar correctness.
+This library allows your Angular 5+ app to create textarea fields that use [Bing's Spellcheck API](https://azure.microsoft.com/en-us/services/cognitive-services/spell-check/) to verify spelling and grammar correctness. It is used by The Graide Network in their frontend Angular application.
 
 -- ANIMATION COMING SOON --
 
@@ -14,7 +14,7 @@ Coming soon!
 Coming soon!
 
 ### Local Development
-- Include the local version of this library form your main application: `"bing-spellchecker": "file:../bing-spellchecker/dist"`
+- Include the local version of this library form your main application: `"ngx-bing-spellchecker": "file:../bing-spellchecker/dist"`
 - Make any updates and then build: `npm run -s build`.
 - Update in the application: `npm update`.
 - Serve your application. Be sure to use the `--preserve-symlinks` option while locally developing.
