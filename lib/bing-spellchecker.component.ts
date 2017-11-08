@@ -7,11 +7,36 @@ import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
   selector: 'bing-spellchecker',
-  templateUrl: './bing-spellchecker.component.html'
+  // templateUrl: './bing-spellchecker.component.html',
+  template: `
+    <textarea
+      class="form-control"
+      [placeholder]="placeholder"
+      (ngModelChange)="update($event)"
+      [ngModel]="inputText"
+      [rows]="rows"
+    ></textarea>
+    <div *ngIf="status==='checking' && inputText" class="alert alert-info">
+      Typing...
+    </div>
+    <div *ngIf="status==='failed' && inputText" class="alert alert-danger">
+      Looks like you may have a spelling or grammar error:
+      <ul>
+        <li *ngFor="let error of errors">
+          "{{ error.token }}"
+          <span *ngIf="error.suggestions[0]">should be "{{ error.suggestions[0].suggestion }}"</span>
+          <span *ngIf="error.suggestions[1]">or "{{ error.suggestions[1].suggestion }}"</span>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="status==='passed' && inputText" class="alert alert-success">
+      ✓ Spelling and grammar check passed. Carry on!
+    </div>
+  `,
 })
 export class BingSpellcheckerComponent implements OnInit {
-  @Input() inputText: string;
-  @Input() placeholder: string;
+  @Input() inputText = '';
+  @Input() placeholder = '';
   @Input() rows = 4;
   @Input() spellcheckUrl = '/';
   @Output() updated: EventEmitter<string> = new EventEmitter();

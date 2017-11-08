@@ -1,10 +1,11 @@
 # Angular 5 Bing Spellchecker
 
 [ ![Codeship Status for thegraidenetwork/ngx-bing-spellchecker](https://app.codeship.com/projects/8c3e2310-a6c5-0135-9962-3a5d1d8055ee/status?branch=master)](https://app.codeship.com/projects/255625)
+[![npm version](https://badge.fury.io/js/ngx-bing-spellchecker.svg)](https://badge.fury.io/js/ngx-bing-spellchecker)
 
 This library allows your Angular 5+ app to create textarea fields that use [Bing's Spellcheck API](https://azure.microsoft.com/en-us/services/cognitive-services/spell-check/) to verify spelling and grammar correctness. It is used by The Graide Network in their frontend Angular application.
 
--- ANIMATION COMING SOON --
+![](https://i.imgur.com/kcChKUt.gif)
 
 ## Prerequisites
 
@@ -82,6 +83,8 @@ Currently done manually with this command:
 ```bash
 npm version <X.Y.Z> && npm run -s build && npm publish dist/ && git push --tags
 ```
+
+Where `<X.Y.Z>` is the new version you want to push.
 
 ## License
 

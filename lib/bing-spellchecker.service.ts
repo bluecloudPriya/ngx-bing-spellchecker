@@ -9,14 +9,6 @@ export class BingSpellcheckerService {
 
   constructor(private http: HttpClient) { }
 
-  /**
-   * Spell-checks a string with a specified proxy endpoint
-   *
-   * @param sentence
-   * @param spellcheckUrl
-   *
-   * @returns {Observable<R|T>}
-   */
   public check(sentence: string, spellcheckUrl = '/') {
     // Set the body
     const body = new HttpParams().set('text', sentence).toString();
@@ -43,13 +35,6 @@ export class BingSpellcheckerService {
     });
   }
 
-  /**
-   * Creates a SpellcheckResult object from a raw object
-   *
-   * @param data
-   *
-   * @returns {any}
-   */
   public createResult(data: any): SpellcheckResult {
 
     if (data._type && data.flaggedTokens) {

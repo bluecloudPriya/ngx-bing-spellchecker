@@ -9,7 +9,6 @@ export default {
   name: nameLibrary,
   external: [
     '@angular/core',
-    "@angular/platform-browser",
     "rxjs/Rx",
     "@angular/forms",
     "@angular/common",
@@ -18,24 +17,7 @@ export default {
   sourcemap:true,
   output: {file: PATH_DIST+nameLibrary+".umd.js", format: 'umd'},
   plugins: [
-    angular(
-      {
-      preprocessors:{
-        template:template => template,
-        style: scss => {
-            let css;
-            if(scss){
-              css = sass.renderSync({ data: scss }).css.toString();
-              console.log(css);
-            }else{
-              css = '';
-            }
-            
-            return css;
-        },
-      }
-    }
-    ),
+    angular(),
     typescript({
       typescript:require('typescript')
     }),
