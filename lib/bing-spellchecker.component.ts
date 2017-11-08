@@ -13,6 +13,7 @@ export class BingSpellcheckerComponent implements OnInit {
   @Input() inputText: string;
   @Input() placeholder: string;
   @Input() rows = 4;
+  @Input() spellcheckUrl = '/';
   @Output() updated: EventEmitter<string> = new EventEmitter();
   public errors: Array<SpellcheckToken>;
   public status: string;
@@ -44,7 +45,7 @@ export class BingSpellcheckerComponent implements OnInit {
 
   public checkSpelling(sentence: string) {
     if (sentence && sentence.length > 5) {
-      this.spellchecker.check(sentence).subscribe(result => {
+      this.spellchecker.check(sentence, this.spellcheckUrl).subscribe(result => {
         if (result.flaggedTokens && result.flaggedTokens.length) {
           this.errors = result.flaggedTokens;
           this.status = 'failed';

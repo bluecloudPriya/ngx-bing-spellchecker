@@ -4,6 +4,39 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+@Injectable()
+export class BingSpellcheckerService {
+
+  constructor(private http: HttpClient) { }
+
+  public check(sentence: string, spellcheckUrl = '/') {
+    // Set the body
+    const body = new HttpParams().set('text', sentence).toString();
+
+    // set query string options
+    const params = new HttpParams()
+      .set('mode', 'proof')
+      .set('mkt', 'en-US');
+
+    // Set headers
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Accept', 'application/json');
+
+    // Make the API call
+    return this.http.post(spellcheckUrl, body, {
+      headers: headers,
+      params: params,
+    }).map(result => {
+      return SpellcheckResultFactory.create(result);
+    }).catch((error: any) => {
+      // Handle failures
+      console.error(error);
+      return Observable.throw('Error');
+    });
+  }
+}
+
 export class SpellcheckSuggestion {
   suggestion: string;
   score: number;
@@ -40,39 +73,5 @@ export class SpellcheckResultFactory {
       return result;
     }
     return new SpellcheckResult;
-  }
-}
-
-@Injectable()
-export class BingSpellcheckerService {
-  private baseUrl = '/api/spellcheck';
-
-  constructor(private http: HttpClient) { }
-
-  public check(sentence: string) {
-    // Set the body
-    const body = new HttpParams().set('text', sentence).toString();
-
-    // set query string options
-    const params = new HttpParams()
-      .set('mode', 'proof')
-      .set('mkt', 'en-US');
-
-    // Set headers
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/x-www-form-urlencoded')
-      .set('Accept', 'application/json');
-
-    // Make the API call
-    return this.http.post(this.baseUrl, body, {
-      headers: headers,
-      params: params,
-    }).map(result => {
-      return SpellcheckResultFactory.create(result);
-    }).catch((error: any) => {
-      // Handle failures
-      console.error(error);
-      return Observable.throw('Error');
-    });
   }
 }
