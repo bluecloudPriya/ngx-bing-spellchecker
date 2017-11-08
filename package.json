@@ -12,7 +12,8 @@
     "copy": "node tools/copy-package.js && node tools/cleanup.js",
     "postbundle": "node tools/removecode.js",
     "publish": "cd ./dist && npm publish",
-    "test": "karma start"
+    "test": "karma start",
+    "test-single-run": "karma start --single-run"
   },
   "dependencies": {
     "@angular/common": "^5.0.0",
