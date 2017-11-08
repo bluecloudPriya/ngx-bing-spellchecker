@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BingSpellcheckerService, SpellcheckToken } from './bing-spellchecker.service';
-import { Subject } from 'rxjs/Subject';
 import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
@@ -43,7 +43,7 @@ export class BingSpellcheckerComponent implements OnInit {
     this.inputTextChanged.next(sentence);
   }
 
-  public checkSpelling(sentence: string) {
+  private checkSpelling(sentence: string) {
     if (sentence && sentence.length > 5) {
       this.spellchecker.check(sentence, this.spellcheckUrl).subscribe(result => {
         if (result.flaggedTokens && result.flaggedTokens.length) {

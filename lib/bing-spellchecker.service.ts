@@ -9,6 +9,14 @@ export class BingSpellcheckerService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Spell-checks a string with a specified proxy endpoint
+   *
+   * @param sentence
+   * @param spellcheckUrl
+   *
+   * @returns {Observable<R|T>}
+   */
   public check(sentence: string, spellcheckUrl = '/') {
     // Set the body
     const body = new HttpParams().set('text', sentence).toString();
@@ -27,13 +35,39 @@ export class BingSpellcheckerService {
     return this.http.post(spellcheckUrl, body, {
       headers: headers,
       params: params,
-    }).map(result => {
-      return SpellcheckResultFactory.create(result);
+    }).map(data => {
+      return this.createResult(data);
     }).catch((error: any) => {
       // Handle failures
-      console.error(error);
-      return Observable.throw('Error');
+      return Observable.throw(error);
     });
+  }
+
+  /**
+   * Creates a SpellcheckResult object from a raw object
+   *
+   * @param data
+   *
+   * @returns {any}
+   */
+  public createResult(data: any): SpellcheckResult {
+
+    if (data._type && data.flaggedTokens) {
+      const result = Object.assign(new SpellcheckResult(), data);
+
+      result.flaggedTokens = result.flaggedTokens.map(flaggedToken => {
+        const token = Object.assign(new SpellcheckToken(), flaggedToken);
+
+        token.suggestions = token.suggestions.map(suggestion => {
+          return Object.assign(new SpellcheckSuggestion(), suggestion);
+        });
+
+        return token;
+      });
+
+      return result;
+    }
+    return new SpellcheckResult();
   }
 }
 
@@ -52,26 +86,4 @@ export class SpellcheckToken {
 export class SpellcheckResult {
   _type: string;
   flaggedTokens: Array<SpellcheckToken>;
-}
-
-export class SpellcheckResultFactory {
-  public static create(data: any): SpellcheckResult {
-
-    if (data._type && data.flaggedTokens) {
-      const result = Object.assign(new SpellcheckResult(), data);
-
-      result.flaggedTokens = result.flaggedTokens.map(flaggedToken => {
-        const token = Object.assign(new SpellcheckToken(), flaggedToken);
-
-        token.suggestions = token.suggestions.map(suggestion => {
-          return Object.assign(new SpellcheckSuggestion(), suggestion);
-        });
-
-        return token;
-      });
-
-      return result;
-    }
-    return new SpellcheckResult;
-  }
 }
