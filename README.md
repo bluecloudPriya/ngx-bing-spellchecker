@@ -80,8 +80,7 @@ Tests are stored in the `/tests` directory and can be run using Karma (`karma st
 Currently done manually with this command:
 
 ```bash
-npm version <X.Y.Z> && npm publish dist/
-git push --tags
+npm version <X.Y.Z> && npm run -s build && npm publish dist/ && git push --tags
 ```
 
 ## License
