@@ -1,6 +1,6 @@
 {
   "name": "ngx-bing-spellchecker",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "",
   "main": "bing-spellchecker.umd.js",
   "jsnext:main": "bing-spellchecker.esm.js",
