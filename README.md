@@ -77,7 +77,13 @@ Tests are stored in the `/tests` directory and can be run using Karma (`karma st
 
 ### Releases
 
-Coming soon!
+Currently done manually with this command:
+
+```bash
+npm version <X.Y.Z>
+npm publish
+
+```
 
 ## License
 
